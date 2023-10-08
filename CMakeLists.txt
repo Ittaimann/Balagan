@@ -5,7 +5,7 @@ project(Balagan)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(external/SDL)
-add_executable(Balagan main.cpp)
+add_executable(Balagan src/main.cpp)
 target_include_directories(Balagan PUBLIC external/SDL/include)
 
 if(MSVC)
