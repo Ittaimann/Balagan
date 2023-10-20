@@ -1,12 +1,15 @@
 cmake_minimum_required(VERSION 3.27.3)
-
 project(Balagan VERSION 0.0.1)
+
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_DEBUG_POSTFIX d)
 
 add_subdirectory(external/SDL)
 add_subdirectory(src/Containers)
 
 add_executable(Balagan src/main.cpp)
+set_target_properties(Balagan PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 
 target_include_directories(Balagan PRIVATE src/Core)
 target_include_directories(Balagan PRIVATE src/Containers)
@@ -20,7 +23,8 @@ if(MSVC)
 endif()
 if(TARGET SDL2::SDL2main)
     # It has an implicit dependency on SDL2 functions, so it MUST be added before SDL2::SDL2 (or SDL2::SDL2-static)
-    target_link_libraries(Balagan SDL2::SDL2main ${LIBS})
+    #    target_link_libraries(Balagan PRIVATE SDL2::SDL2main ${LIBS})
+    #else()
 endif()
 target_link_libraries(Balagan
     SDL2-static
