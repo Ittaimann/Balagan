@@ -1,6 +1,5 @@
 /build
 /.config
-build.py
 .cache
 compile_commands.json
 workflow.md
