@@ -1,5 +1,3 @@
-#include "SDL_render.h"
-#include "SDL_video.h"
 #include <SDL.h>
 #include <String.h>
 
