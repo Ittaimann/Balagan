@@ -8,6 +8,7 @@ set(CMAKE_DEBUG_POSTFIX d)
 
 add_subdirectory(external/SDL)
 add_subdirectory(src/Containers)
+add_subdirectory(src/FileIo)
 
 
 if (MSVC)
@@ -21,6 +22,7 @@ set_target_properties(Balagan PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 
 target_include_directories(Balagan PRIVATE src/Core)
 target_include_directories(Balagan PRIVATE src/Containers)
+target_include_directories(Balagan PRIVATE src/FileIo)
 target_include_directories(Balagan PUBLIC external/SDL/include)
 
 set(LIBS Containers)

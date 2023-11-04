@@ -1,0 +1,39 @@
+#include "FileIo.h"
+
+#include "../Core/CoreDefs.h"
+
+namespace BAL
+{
+
+FileIo::status FileIo::OpenFile(const String i_filePath, Array<char>& o_outputBuffer)
+{
+	FILE* fd = nullptr;
+	fd = fOpen(i_filePath.Data(), "r");
+
+	if (fd == nullptr)
+	{
+		// TODO: figure out logging lmao
+		return ERROR;
+	}
+
+	fseek(fd, 0L, SEEK_END);
+	uint fileSize = ftell(fd);
+	o_outputBuffer.Resize(fileSize);
+
+	fseek(fd, 0, SEEK_SET);
+
+	int ret = fread(o_outputBuffer.Data(), o_outputBuffer.Size(), 1, fd);
+
+	if (ret != 1)
+	{
+		// NEED LOGGING
+		return ERROR;
+	}
+	return CloseFile(fd);
+}
+FileIo::status FileIo::CloseFile(FILE* i_fd)
+{
+	fclose(i_fd);
+	return OK;
+}
+} // namespace BAL
