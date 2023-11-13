@@ -1,6 +1,6 @@
 #include "FileIo.h"
 
-#include "../Core/CoreDefs.h"
+#include <Core/CoreDefs.h>
 
 namespace BAL
 {

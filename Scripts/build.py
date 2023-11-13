@@ -36,12 +36,11 @@ def runDebug( ):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Short cuts for the build')
 
-    parser.add_argument('-g', dest="regen", action="store_true", help='regenerate project with files with the original generator')
-    parser.add_argument('-b', dest="build", action="store_true", help='builds project')
-    parser.add_argument('-r', dest="run", action="store_true", help='runs project')
-    parser.add_argument('-d', dest="debug", action="store_true", help='sets for debug')
-    parser.add_argument('-rd', dest="runDebug", action="store_true", help='runs project in lldb')
-    parser.add_argument('-p', dest="path", action="store_true", help='runs project in lldb')
+    parser.add_argument('-g',"--generate", dest="regen", action="store_true", help='regenerate project with files with the original generator')
+    parser.add_argument('-b',"--build", dest="build", action="store_true", help='builds project')
+    parser.add_argument('-r',"--run", dest="run", action="store_true", help='runs project')
+    parser.add_argument('-d',"--debug", dest="debug", action="store_true", help='sets for debug')
+    parser.add_argument('-rd',"--debugrun", dest="runDebug", action="store_true", help='runs project in lldb')
 
     args = parser.parse_args()
     debug = False

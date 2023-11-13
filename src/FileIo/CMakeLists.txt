@@ -3,5 +3,4 @@ add_library(
     FileIo.cpp
 )
 
-set(DEPS ../Containers ../Core) 
-target_include_directories(FileIo PRIVATE {DEPS})
+target_include_directories(FileIo PUBLIC ../)

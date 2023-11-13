@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Containers/Array.h"
-#include "../Containers/String.h"
+#include <Containers/Array.h>
+#include <Containers/String.h>
 #include <stdio.h>
 
 namespace BAL
