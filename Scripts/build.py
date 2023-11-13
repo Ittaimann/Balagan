@@ -5,21 +5,21 @@ import argparse
 GENERATOR_TEXT = "Ninja"
 
 def generate( debug ):
-    dir_path = os.path.join( os.path.dirname(os.path.realpath(__file__)), "build")
+    dir_path = os.path.join( os.path.dirname(os.path.realpath(__file__)),".." ,"build")
     if(debug):
         subprocess.run(["cmake", "-DCMAKE_BUILD_TYPE=Debug", "-G", GENERATOR_TEXT,"../.."],cwd=os.path.join(dir_path,"debug")) 
     else:                                                   
         subprocess.run(["cmake","-DCMAKE_BUILD_TYPE=Release", "-G",GENERATOR_TEXT,"../.."],cwd=os.path.join(dir_path,"release")) 
 
 def build( debug ):
-    dir_path = os.path.join( os.path.dirname(os.path.realpath(__file__)), "build")
+    dir_path = os.path.join( os.path.dirname(os.path.realpath(__file__)), "..","build")
     if(debug):
         subprocess.run(["cmake", "--build","." ],cwd=os.path.join(dir_path,"debug")) 
     else:
         subprocess.run(["cmake", "--build","." ],cwd=os.path.join(dir_path,"release")) 
         
 def run( debug ):
-    dir_path = os.path.join( os.path.dirname(os.path.realpath(__file__)), "build")
+    dir_path = os.path.join( os.path.dirname(os.path.realpath(__file__)), "..", "build")
     if(debug):
         dir_path = os.path.join( os.path.dirname(dir_path),"debug")
         exe_path = os.path.join( dir_path, "Balagand")
@@ -41,6 +41,7 @@ if __name__ == "__main__":
     parser.add_argument('-r', dest="run", action="store_true", help='runs project')
     parser.add_argument('-d', dest="debug", action="store_true", help='sets for debug')
     parser.add_argument('-rd', dest="runDebug", action="store_true", help='runs project in lldb')
+    parser.add_argument('-p', dest="path", action="store_true", help='runs project in lldb')
 
     args = parser.parse_args()
     debug = False
