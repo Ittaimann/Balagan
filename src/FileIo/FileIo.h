@@ -16,7 +16,7 @@ public:
 		ERROR,
 	};
 
-	status OpenFile(const String i_filePath, Array<char>& o_outputBuffer);
+	status OpenFile(String i_filePath, Array<char>& o_outputBuffer);
 	status CloseFile(FILE* i_fd);
 
 private:

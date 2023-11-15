@@ -5,10 +5,10 @@
 namespace BAL
 {
 
-FileIo::status FileIo::OpenFile(const String i_filePath, Array<char>& o_outputBuffer)
+FileIo::status FileIo::OpenFile(String i_filePath, Array<char>& o_outputBuffer)
 {
 	FILE* fd = nullptr;
-	fd = fOpen(i_filePath.Data(), "r");
+	fd = fopen(i_filePath.Data(), "r");
 
 	if (fd == nullptr)
 	{
@@ -17,7 +17,7 @@ FileIo::status FileIo::OpenFile(const String i_filePath, Array<char>& o_outputBu
 	}
 
 	fseek(fd, 0L, SEEK_END);
-	uint fileSize = ftell(fd);
+	uint32 fileSize = ftell(fd);
 	o_outputBuffer.Resize(fileSize);
 
 	fseek(fd, 0, SEEK_SET);
