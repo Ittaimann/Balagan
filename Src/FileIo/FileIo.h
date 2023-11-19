@@ -17,8 +17,8 @@ public:
 	};
 
 	// TODO: nodiscard
-	status OpenFile(const String& i_filePath, Array<char>& o_outputBuffer);
-	status CloseFile(FILE* i_fd);
+	status openFile(const String& i_filePath, Array<char>& o_outputBuffer);
+	status closeFile(FILE* i_fd);
 
 private:
 };

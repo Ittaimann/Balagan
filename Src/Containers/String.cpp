@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <cstring> // for strlen
 
+#include <vector>
+
 namespace BAL
 {
 
@@ -15,8 +17,8 @@ String::String(const char* i_string)
 	: m_data(nullptr)
 	, m_size(0)
 {
-	Append(i_string, strlen(i_string));
-	CStringCopy(i_string);
+	append(i_string, strlen(i_string));
+	cStringCopy(i_string);
 }
 
 String::~String()
@@ -24,16 +26,16 @@ String::~String()
 	delete m_data;
 }
 
-void String::Append(const char* i_string, uint32 i_length)
+void String::append(const char* i_string, uint32 i_length)
 {
 	if (i_string == nullptr || i_length == 0)
 	{
 		return;
 	}
-	Resize(i_length + m_size);
+	resize(i_length + m_size);
 }
 
-void String::Resize(uint32 i_size)
+void String::resize(uint32 i_size)
 {
 	char* tempData = new char[i_size + 1];
 	if (m_data != nullptr)
@@ -48,16 +50,16 @@ void String::Resize(uint32 i_size)
 	m_data = tempData;
 	m_size = i_size;
 }
-char* String::Data()
+char* String::data()
 {
 	return m_data;
 }
-const char* String::Data() const
+const char* String::data() const
 {
 	return m_data;
 };
 
-void String::CStringCopy(const char* i_string)
+void String::cStringCopy(const char* i_string)
 {
 	memcpy(m_data, i_string, m_size);
 }

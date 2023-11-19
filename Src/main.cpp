@@ -22,11 +22,11 @@ int main()
 	BAL::String lmao("this is also a test");
 	std::string test("this is a test");
 	std::cout << test;
-	std::cout << lmao.Data();
+	std::cout << lmao.data();
 	BAL::FileIo fileHandler;
 	BAL::Array<char> fileBuffer;
 	BAL::String filePath("Resources/Window.xml");
-	fileHandler.OpenFile(filePath, fileBuffer);
+	fileHandler.openFile(filePath, fileBuffer);
 
 	// TODO:  build some debugging around this
 	SDL_Init(SDL_INIT_VIDEO);
