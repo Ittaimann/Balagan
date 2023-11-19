@@ -1,3 +1,4 @@
+#include <FileIo.h>
 #include <SDL.h>
 #include <String.h>
 

@@ -27,6 +27,7 @@ public:
 	}
 	void Resize(uint32 i_size)
 	{
+		(void)i_size;
 	}
 
 	uint32 Size()
