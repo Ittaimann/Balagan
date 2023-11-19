@@ -6,14 +6,14 @@ namespace BAL
 {
 
 String::String()
-	: m_size(0)
-	, m_data(nullptr)
+	: m_data(nullptr)
+	, m_size(0)
 {
 }
 
 String::String(const char* i_string)
-	: m_size(0)
-	, m_data(nullptr)
+	: m_data(nullptr)
+	, m_size(0)
 {
 	Append(i_string, strlen(i_string));
 }

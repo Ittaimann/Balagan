@@ -1,3 +1,4 @@
+#pragma once
 #include "../Core/CoreDefs.h"
 
 // TODO: fill this out
@@ -7,8 +8,11 @@ namespace BAL
 template <typename T> class Array
 {
 public:
-	Array();
-	virtual ~Array();
+	Array(){};
+	virtual ~Array()
+	{
+		delete m_data;
+	};
 	T operator[](const uint32 i_index)
 	{
 		return m_data[i_index];

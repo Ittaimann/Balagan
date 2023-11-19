@@ -1,3 +1,4 @@
+#include <Array.h>
 #include <FileIo.h>
 #include <SDL.h>
 #include <String.h>
@@ -22,6 +23,10 @@ int main()
 	std::string test("this is a test");
 	std::cout << test;
 	std::cout << lmao.Data();
+	BAL::FileIo fileHandler;
+	BAL::Array<char> fileBuffer;
+	BAL::String filePath("../../Resources/Window.xml");
+	fileHandler.OpenFile(filePath, fileBuffer);
 
 	// TODO:  build some debugging around this
 	SDL_Init(SDL_INIT_VIDEO);

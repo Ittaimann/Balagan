@@ -6,10 +6,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 set(CMAKE_DEBUG_POSTFIX d)
 
-add_subdirectory(External/SDL)
-add_subdirectory(Src/Containers)
-add_subdirectory(Src/FileIo)
 
+# externals do not get the compile options, the hope 
+# being that they are reasonable. I'm not going to silence
+# warnings for me based on them
+add_subdirectory(External/SDL)
 
 if (MSVC)
     add_compile_options(/W4 /WX /Wall)
@@ -20,6 +21,9 @@ else()
     add_compile_options(-Werror)
 endif()
 
+add_subdirectory(Src/Containers)
+add_subdirectory(Src/FileIo)
+
 add_executable(Balagan Src/main.cpp)
 set_target_properties(Balagan PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 
@@ -28,7 +32,7 @@ target_include_directories(Balagan PRIVATE Src/Containers)
 target_include_directories(Balagan PRIVATE Src/FileIo)
 target_include_directories(Balagan PUBLIC external/SDL/include)
 
-set(LIBS Containers)
+set(LIBS Containers FileIo)
 
 if (MSVC)
     set_property(DIRECTORY ${PROJECT_ROOT} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})

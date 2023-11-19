@@ -5,7 +5,7 @@
 namespace BAL
 {
 
-FileIo::status FileIo::OpenFile(String i_filePath, Array<char>& o_outputBuffer)
+FileIo::status FileIo::OpenFile(const String& i_filePath, Array<char>& o_outputBuffer)
 {
 	FILE* fd = nullptr;
 	fd = fopen(i_filePath.Data(), "r");
