@@ -16,6 +16,7 @@ String::String(const char* i_string)
 	, m_size(0)
 {
 	Append(i_string, strlen(i_string));
+	CStringCopy(i_string);
 }
 
 String::~String()
@@ -45,10 +46,20 @@ void String::Resize(uint32 i_size)
 		delete m_data;
 	}
 	m_data = tempData;
+	m_size = i_size;
 }
 char* String::Data()
 {
 	return m_data;
+}
+const char* String::Data() const
+{
+	return m_data;
+};
+
+void String::CStringCopy(const char* i_string)
+{
+	memcpy(m_data, i_string, m_size);
 }
 
 } // namespace BAL

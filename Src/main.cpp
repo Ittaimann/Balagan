@@ -25,7 +25,7 @@ int main()
 	std::cout << lmao.Data();
 	BAL::FileIo fileHandler;
 	BAL::Array<char> fileBuffer;
-	BAL::String filePath("../../Resources/Window.xml");
+	BAL::String filePath("Resources/Window.xml");
 	fileHandler.OpenFile(filePath, fileBuffer);
 
 	// TODO:  build some debugging around this

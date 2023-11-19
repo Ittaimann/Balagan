@@ -15,10 +15,8 @@ public:
 	void Append(const char* i_char, uint32 i_length);
 	void Resize(uint32 i_size);
 	char* Data();
-	const char* Data() const
-	{
-		return m_data;
-	};
+	const char* Data() const;
+	void CStringCopy(const char* i_string);
 
 private:
 	char* m_data;
