@@ -1,5 +1,6 @@
 #include <Array.h>
 #include <FileIo.h>
+#include <Pair.h>
 #include <SDL.h>
 #include <String.h>
 
@@ -11,8 +12,7 @@
 int main()
 {
 	// things to do:
-	// 1. consume an init file
-	//      a. same directory?
+	// 1. consume an init file a. same directory?
 	// 2. start game loop
 	//      a. game managers?
 	// 3. start render loop
@@ -26,7 +26,7 @@ int main()
 	BAL::FileIo fileHandler;
 	BAL::Array<char> fileBuffer;
 	BAL::String filePath("Resources/Window.xml");
-	fileHandler.openFile(filePath, fileBuffer);
+	fileHandler.openFile(filePath, &fileBuffer);
 
 	// TODO:  build some debugging around this
 	SDL_Init(SDL_INIT_VIDEO);
