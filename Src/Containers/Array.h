@@ -8,7 +8,10 @@ namespace BAL
 template <typename T> class Array
 {
 public:
-	Array(){};
+	Array()
+		: m_data(nullptr)
+		, m_size(0)
+		, m_capacity(0){};
 	virtual ~Array()
 	{
 		delete m_data;
