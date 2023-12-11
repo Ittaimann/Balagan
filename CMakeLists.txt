@@ -21,7 +21,6 @@ else()
     add_compile_options(-Werror)
 endif()
 
-add_subdirectory(Src/Containers)
 add_subdirectory(Src/FileIo)
 
 add_executable(Balagan Src/main.cpp)
@@ -32,7 +31,7 @@ target_include_directories(Balagan PRIVATE Src/Containers)
 target_include_directories(Balagan PRIVATE Src/FileIo)
 target_include_directories(Balagan PUBLIC external/SDL/include)
 
-set(LIBS Containers FileIo)
+set(LIBS FileIo)
 
 if (MSVC)
     set_property(DIRECTORY ${PROJECT_ROOT} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
