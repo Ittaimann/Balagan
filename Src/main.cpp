@@ -3,6 +3,7 @@
 #include <Pair.h>
 #include <SDL.h>
 #include <String.h>
+#include <xml/XmlParser.h>
 
 // TODO: remove these
 #include <iostream>
@@ -27,6 +28,8 @@ int main()
 	BAL::Array<char> fileBuffer;
 	BAL::String filePath("Resources/Window.xml");
 	fileHandler.openFile(filePath, &fileBuffer);
+	BAL::XmlParser parser;
+	parser.parseData(fileBuffer);
 
 	// TODO:  build some debugging around this
 	SDL_Init(SDL_INIT_VIDEO);

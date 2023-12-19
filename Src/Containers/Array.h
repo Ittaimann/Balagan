@@ -24,9 +24,10 @@ public:
 	T* data() { return m_data; }
 	void resize(const uint32 i_size)
 	{
-		if (i_size < m_size)
+		if (i_size > m_size)
 		{
 			expand(i_size);
+			m_size = m_capacity; // here as re"size" should adjust size
 		}
 		else
 		{
@@ -51,8 +52,7 @@ public:
 private:
 	void expand(const uint32 i_size)
 	{
-		T* tempData = m_data;
-
+		T* tempData = allocate(i_size);
 		if (m_data != nullptr)
 		{
 			for (uint32 i = 0; i < m_size; i++)
@@ -60,13 +60,13 @@ private:
 				tempData[i] = m_data[i];
 			}
 			delete m_data;
+			m_data = tempData;
 		}
 		else
 		{
-			m_data = allocate(i_size);
+			m_data = tempData;
 		}
 
-		m_data = tempData;
 		m_capacity = i_size;
 	}
 

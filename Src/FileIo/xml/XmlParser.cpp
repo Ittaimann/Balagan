@@ -72,7 +72,7 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 		}
 		if (i_data[i_state.m_index] == '<' && i_data[i_state.m_index + 1] != '/')
 		{
-			if (i_currentNode->m_name == "")
+			if (i_currentNode != nullptr && i_currentNode->m_name == "")
 			{
 				value = "";
 				uint lookAhead = i_state.m_index + 1;
