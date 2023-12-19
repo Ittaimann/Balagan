@@ -14,13 +14,27 @@
 namespace BAL
 {
 
-using dataNode = Pair<String, String>;
+using attributeData = Pair<String, String>;
 
 struct treeNode
 {
+	String m_name;
+	String m_value; // may be empty if there is children nodes
 	Array<treeNode*> m_childrenNodes;
-	Array<dataNode> m_valueNodes;
-	Array<dataNode> m_attributeNodes;
+	// Array<attributeData> m_attributeNodes;
+};
+
+enum ReturnCodes : uint32
+{
+	ERROR_NO_VERSION_TEXT,
+	ERROR_MALFORMED_CLOSING_BRACKET,
+	SUCCESS
+};
+
+struct runningState
+{
+	uint m_index;
+	ReturnCodes m_status;
 };
 
 class XmlParser
@@ -29,13 +43,15 @@ public:
 	XmlParser();
 	virtual ~XmlParser();
 
-	treeNode* getRootNode();
-	Array<treeNode*> getChildrenNodes() const { return m_root.m_childrenNodes; };
-	Array<dataNode> getValueNodes() const { return m_root.m_valueNodes; };
-	Array<dataNode> getAttributeNodes() { return m_root.m_attributeNodes; };
+	void parseData(const Array<char>& i_data);
+	const treeNode* getRootNode() const { return m_root; };
+	Array<treeNode*> getChildrenNodes() const { return m_root->m_childrenNodes; };
 
 private:
-	treeNode m_root;
+	treeNode* parseNodes(treeNode* i_currentNode, const Array<char>& i_data, runningState i_stateconst);
+	runningState skipVersion(const Array<char>& i_data);
+
+	treeNode* m_root;
 };
 
 } // namespace BAL
