@@ -29,6 +29,15 @@ def run( debug ):
         exe_path = os.path.join( dir_path, "Balagan")
         subprocess.run(exe_path,cwd=dir_path) 
 
+def clean( debug ):
+    dir_path = os.path.join( os.path.dirname(os.path.realpath(__file__)), "..", "build")
+    if(debug):
+        subprocess.run(["rm","-rf","debug"],cwd=dir_path) 
+        subprocess.run(["mkdir","debug"],cwd=dir_path) 
+    else:
+        subprocess.run(["rm","-rf","release"],cwd=dir_path) 
+        subprocess.run(["mkdir","release"],cwd=dir_path) 
+
 def runDebug( ):
     dir_path = os.path.join( os.path.dirname(os.path.realpath(__file__)), "build")
     subprocess.run(["lldb", "Balagand"],cwd=os.path.join(dir_path,"debug")) 
@@ -42,6 +51,7 @@ if __name__ == "__main__":
     parser.add_argument('-re',"--release", dest="build", action="store_true", help='builds project')
     parser.add_argument('-d',"--debug", dest="debug", action="store_true", help='sets for debug')
     parser.add_argument('-rd',"--debugrun", dest="runDebug", action="store_true", help='runs project in lldb')
+    parser.add_argument('-c',"--clean", dest="clean", action="store_true", help='clean projects')
 
     args = parser.parse_args()
     debug = False
@@ -49,6 +59,8 @@ if __name__ == "__main__":
     if(args.debug):
         debug = True
 
+    if(args.clean):
+        clean( clean )
     if(args.regen):
         generate( debug )
     if(args.build):

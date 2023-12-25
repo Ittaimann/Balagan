@@ -1,7 +1,11 @@
 #pragma once
 #include "../Core/CoreDefs.h"
 
-// TODO: fill this out
+// TODO:
+// - move constructors
+// - refernce type vs pointer type vs all the types
+// - solidify when I am allocating, anytime we allocate its a seperate thing from the state setting
+// - allocators
 namespace BAL
 {
 
@@ -37,13 +41,14 @@ public:
 
 	void push_back(T i_value)
 	{
-		append(i_value);
+		append();
 		m_data[m_size] = i_value;
 	}
 
 	T& push_back()
 	{
 		append();
+		m_data[m_size] = new T;
 		return m_data[m_size];
 	}
 	uint32 size() const { return m_size; }

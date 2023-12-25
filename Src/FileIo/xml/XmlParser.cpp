@@ -33,7 +33,7 @@ void XmlParser::parseData(const Array<char>& i_data)
 		// TODO: assert here
 		return;
 	}
-	m_root = parseNodes(nullptr, i_data, state);
+	m_root = parseNodes(m_root, i_data, state);
 	if (state.m_status != SUCCESS)
 	{
 		// TODO: assert here
@@ -85,7 +85,8 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 			else
 			{
 				// new child node
-				treeNode* child = i_currentNode->m_childrenNodes.push_back();
+				treeNode* child = new treeNode();
+				i_currentNode->m_childrenNodes.push_back(child);
 				child = parseNodes(child, i_data, i_state);
 			}
 		}
