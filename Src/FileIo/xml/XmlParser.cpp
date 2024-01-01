@@ -5,7 +5,12 @@
 namespace BAL
 {
 
-XmlParser::XmlParser() {}
+XmlParser::XmlParser()
+{
+	m_root->m_name = "";
+	m_root->m_childrenNodes.clear();
+	m_root->m_value = "";
+}
 XmlParser::~XmlParser() {}
 
 // Probably want to do this recursively lmao
@@ -28,6 +33,7 @@ void XmlParser::parseData(const Array<char>& i_data)
 	runningState state;
 
 	state = skipVersion(i_data);
+	state.m_index += 1; // TODO: remove this
 	if (state.m_status != SUCCESS)
 	{
 		// TODO: assert here
@@ -52,6 +58,7 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 	String value = "";
 	while (!foundElement)
 	{
+		// Closing
 		if (i_data[i_state.m_index] == '<' && i_data[i_state.m_index + 1] == '/')
 		{
 			uint lookAhead = i_state.m_index + 2;
@@ -61,6 +68,9 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 				closingName += i_data[lookAhead];
 				lookAhead += 1;
 			}
+
+			i_state.m_index = lookAhead;
+
 			if (i_currentNode->m_name == closingName)
 			{
 				return i_currentNode;
@@ -68,8 +78,10 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 			else
 			{
 				i_state.m_status = ERROR_MALFORMED_CLOSING_BRACKET;
+				return nullptr;
 			}
 		}
+		// opening
 		if (i_data[i_state.m_index] == '<' && i_data[i_state.m_index + 1] != '/')
 		{
 			if (i_currentNode != nullptr && i_currentNode->m_name == "")
@@ -81,6 +93,7 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 					i_currentNode->m_name += i_data[lookAhead];
 					lookAhead += 1;
 				}
+				i_state.m_index = lookAhead;
 			}
 			else
 			{
@@ -93,7 +106,7 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 		value += i_data[i_state.m_index];
 		i_state.m_index += 1;
 	}
-	return nullptr;
+	return i_currentNode;
 }
 
 runningState XmlParser::skipVersion(const Array<char>& i_data)

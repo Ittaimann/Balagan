@@ -26,6 +26,7 @@ public:
 	T front();
 	T back();
 	T* data() { return m_data; }
+	void clear() { shrink(0); }
 	void resize(const uint32 i_size)
 	{
 		if (i_size > m_size)
@@ -90,7 +91,7 @@ private:
 
 	void shrink(const uint32 i_size)
 	{
-		char* tempData = allocate(i_size);
+		T* tempData = allocate(i_size);
 		// assert if Data is sub that size
 		for (uint32 i = 0; i < i_size; i++)
 		{
