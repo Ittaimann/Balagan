@@ -20,6 +20,7 @@ int main()
 	// 4. consume scene file
 	// 5. go go go
 
+	std::cout << "shit";
 	BAL::String lmao("this is also a test");
 	std::string test("this is a test");
 	std::cout << test;
@@ -28,8 +29,8 @@ int main()
 	BAL::Array<char> fileBuffer;
 	BAL::String filePath("Resources/Window.xml");
 	fileHandler.openFile(filePath, &fileBuffer);
-	BAL::XmlParser parser;
-	parser.parseData(fileBuffer);
+	BAL::XmlParser parser; // TODO: there is something wrong with the destructor
+	// parser.parseData(fileBuffer);
 
 	// TODO:  build some debugging around this
 	SDL_Init(SDL_INIT_VIDEO);

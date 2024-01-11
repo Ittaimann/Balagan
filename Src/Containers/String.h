@@ -22,7 +22,7 @@ public:
 		cStringCopy(i_string);
 	}
 
-	virtual ~String() { delete m_data; }
+	virtual ~String() { delete[] m_data; }
 	char operator[](int i_index) const { return m_data[i_index]; };
 	void operator+(char i_char);
 	void operator+(String i_string);
