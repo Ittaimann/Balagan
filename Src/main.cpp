@@ -30,7 +30,7 @@ int main()
 	BAL::String filePath("Resources/Window.xml");
 	fileHandler.openFile(filePath, &fileBuffer);
 	BAL::XmlParser parser; // TODO: there is something wrong with the destructor
-	// parser.parseData(fileBuffer);
+	parser.parseData(fileBuffer);
 
 	// TODO:  build some debugging around this
 	SDL_Init(SDL_INIT_VIDEO);

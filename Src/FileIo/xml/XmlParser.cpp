@@ -7,29 +7,18 @@ namespace BAL
 
 XmlParser::XmlParser()
 {
-	m_root->m_name = "";
+	m_root = new treeNode();
+	m_root->m_name = "a";
 	m_root->m_childrenNodes.clear();
 	m_root->m_value = "";
 }
-XmlParser::~XmlParser() {}
-
-// Probably want to do this recursively lmao
-// new node < search for > record name
-// everything inside that until <!nodename> is either a
-// value,
-// 	if no < its not a new node so just record that value
-// child node
-// 	found another < so do the tree node check again
-// or attribute node
-//	attributes are weird syntactically
-//
+XmlParser::~XmlParser()
+{
+	// traverse tree and recursively delete
+}
 
 void XmlParser::parseData(const Array<char>& i_data)
 {
-	// ok how doest his work, search for the < stuff >
-	// record the input name, if there is more < between it its a new node
-	// record the name of the tree and search for the closer?
-
 	runningState state;
 
 	state = skipVersion(i_data);
@@ -46,10 +35,6 @@ void XmlParser::parseData(const Array<char>& i_data)
 		return;
 	}
 }
-
-treeNode addNode(); // new node, so do the search for children or value
-					// continue doing it until we have a </ of our name?
-String addValue();	// as long as no </ we append the string
 
 treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_data, runningState i_state)
 {
