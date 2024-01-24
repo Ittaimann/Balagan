@@ -18,7 +18,6 @@ public:
 		: m_data(nullptr)
 		, m_size(0)
 	{
-		append(i_string, strlen(i_string));
 		cStringCopy(i_string);
 	}
 
@@ -32,6 +31,7 @@ public:
 	char operator[](int i_index) const { return m_data[i_index]; };
 	void operator+(char i_char);
 	void operator+(String i_string);
+	void operator=(const char* i_string) { cStringCopy(i_string); }
 
 	bool operator==(const String& i_otherString)
 	{
@@ -81,7 +81,6 @@ public:
 			{
 				tempData[i] = m_data[i];
 			}
-			tempData[i_size + 1] = '\0';
 			delete m_data;
 		}
 		m_data = tempData;
@@ -94,8 +93,12 @@ public:
 	uint size() const { return m_size; };
 
 private:
-	void cStringCopy(const char* i_string) { memcpy(m_data, i_string, m_size); }
-
+	void cStringCopy(const char* i_string)
+	{
+		const uint stringSize = strlen(i_string) + 1;
+		resize(stringSize);
+		memcpy(m_data, i_string, m_size);
+	}
 	char* m_data;
 	uint32 m_size;
 };
