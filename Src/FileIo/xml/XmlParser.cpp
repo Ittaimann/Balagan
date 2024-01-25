@@ -1,21 +1,13 @@
 #include "XmlParser.h"
 #include <Array.h>
 #include <String.h>
+#include <iostream>
 
 namespace BAL
 {
 
-XmlParser::XmlParser()
-{
-	m_root = new treeNode();
-	m_root->m_name = "a";
-	m_root->m_childrenNodes.clear();
-	m_root->m_value = "";
-}
-XmlParser::~XmlParser()
-{
-	// traverse tree and recursively delete
-}
+XmlParser::XmlParser() { m_root = new treeNode(); }
+XmlParser::~XmlParser() {}
 
 void XmlParser::parseData(const Array<char>& i_data)
 {
@@ -39,9 +31,8 @@ void XmlParser::parseData(const Array<char>& i_data)
 treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_data, runningState i_state)
 {
 	// loop through the text until you find something interesting
-	bool foundElement = false;
 	String value = "";
-	while (!foundElement)
+	while (true)
 	{
 		// Closing
 		if (i_data[i_state.m_index] == '<' && i_data[i_state.m_index + 1] == '/')
@@ -66,9 +57,11 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 				return nullptr;
 			}
 		}
+
 		// opening
 		if (i_data[i_state.m_index] == '<' && i_data[i_state.m_index + 1] != '/')
 		{
+
 			if (i_currentNode != nullptr && i_currentNode->m_name == "")
 			{
 				value = "";
@@ -84,8 +77,8 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 			{
 				// new child node
 				treeNode* child = new treeNode();
-				i_currentNode->m_childrenNodes.push_back(child);
 				child = parseNodes(child, i_data, i_state);
+				i_currentNode->m_childrenNodes.push_back(child);
 			}
 		}
 		value += i_data[i_state.m_index];

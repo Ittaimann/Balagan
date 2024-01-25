@@ -72,20 +72,41 @@ public:
 
 	void append(const String i_string) { append(i_string.data(), i_string.size()); }
 
-	void resize(uint32 i_size)
+	void resize(uint32 i_size, char i_initChar)
 	{
 		char* tempData = new char[i_size + 1];
 		if (m_data != nullptr)
 		{
-			for (uint32 i = 0; i < m_size; i++)
+			uint i = 0;
+			while (i < i_size)
 			{
-				tempData[i] = m_data[i];
+				if (i < m_size)
+				{
+					tempData[i] = m_data[i];
+				}
+				else
+				{
+					tempData[i] = i_initChar;
+				}
+				i++;
 			}
 			delete m_data;
 		}
+		else
+		{
+			uint i = 0;
+			while (i < i_size)
+			{
+				tempData[i] = i_initChar;
+				i++;
+			}
+		}
+		tempData[i_size + 1] = '\0';
 		m_data = tempData;
 		m_size = i_size;
 	}
+
+	void resize(uint32 i_size) { resize(i_size, '\0'); }
 
 	char* data() { return m_data; }
 	const char* data() const { return m_data; };
@@ -95,7 +116,8 @@ public:
 private:
 	void cStringCopy(const char* i_string)
 	{
-		const uint stringSize = strlen(i_string) + 1;
+		const uint stringSize = strlen(i_string);
+
 		resize(stringSize);
 		memcpy(m_data, i_string, m_size);
 	}

@@ -18,6 +18,12 @@ using attributeData = Pair<String, String>;
 
 struct treeNode
 {
+	treeNode()
+	{
+		m_name = "";
+		m_value = "";
+	}
+
 	String m_name;
 	String m_value; // may be empty if there is children nodes
 	Array<treeNode*> m_childrenNodes;

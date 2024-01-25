@@ -43,7 +43,7 @@ public:
 	void push_back(T i_value)
 	{
 		append();
-		m_data[m_size] = i_value;
+		m_data[m_size - 1] = i_value;
 	}
 
 	T& push_back()
