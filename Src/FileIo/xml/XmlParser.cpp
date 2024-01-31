@@ -7,7 +7,15 @@ namespace BAL
 {
 
 XmlParser::XmlParser() { m_root = new treeNode(); }
-XmlParser::~XmlParser() {}
+XmlParser::~XmlParser() { clearTree(m_root); }
+void XmlParser::clearTree(treeNode* i_root)
+{
+	for (uint i = 0; i < i_root->m_childrenNodes.size(); i++)
+	{
+		clearTree(i_root->m_childrenNodes[i]);
+	}
+	delete i_root;
+}
 
 void XmlParser::parseData(const Array<char>& i_data)
 {
@@ -20,6 +28,7 @@ void XmlParser::parseData(const Array<char>& i_data)
 		// TODO: assert here
 		return;
 	}
+
 	m_root = parseNodes(m_root, i_data, state);
 	if (state.m_status != SUCCESS)
 	{
@@ -28,24 +37,25 @@ void XmlParser::parseData(const Array<char>& i_data)
 	}
 }
 
-treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_data, runningState i_state)
+treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_data, runningState& io_state)
 {
 	// loop through the text until you find something interesting
-	String value = "";
+	String value("");
 	while (true)
 	{
 		// Closing
-		if (i_data[i_state.m_index] == '<' && i_data[i_state.m_index + 1] == '/')
+		if (i_data[io_state.m_index] == '<' && i_data[io_state.m_index + 1] == '/')
 		{
-			uint lookAhead = i_state.m_index + 2;
-			String closingName = "";
+			uint lookAhead = io_state.m_index + 2;
+			String closingName("");
 			while (i_data[lookAhead] != '>')
 			{
 				closingName += i_data[lookAhead];
 				lookAhead += 1;
 			}
 
-			i_state.m_index = lookAhead;
+			io_state.m_index = lookAhead;
+			i_currentNode->m_value = value;
 
 			if (i_currentNode->m_name == closingName)
 			{
@@ -53,36 +63,36 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 			}
 			else
 			{
-				i_state.m_status = ERROR_MALFORMED_CLOSING_BRACKET;
+				io_state.m_status = ERROR_MALFORMED_CLOSING_BRACKET;
 				return nullptr;
 			}
 		}
 
 		// opening
-		if (i_data[i_state.m_index] == '<' && i_data[i_state.m_index + 1] != '/')
+		if (i_data[io_state.m_index] == '<' && i_data[io_state.m_index + 1] != '/')
 		{
 
 			if (i_currentNode != nullptr && i_currentNode->m_name == "")
 			{
 				value = "";
-				uint lookAhead = i_state.m_index + 1;
+				uint lookAhead = io_state.m_index + 1;
 				while (i_data[lookAhead] != '>')
 				{
 					i_currentNode->m_name += i_data[lookAhead];
 					lookAhead += 1;
 				}
-				i_state.m_index = lookAhead;
+				io_state.m_index = lookAhead + 1;
 			}
 			else
 			{
 				// new child node
 				treeNode* child = new treeNode();
-				child = parseNodes(child, i_data, i_state);
+				child = parseNodes(child, i_data, io_state);
 				i_currentNode->m_childrenNodes.push_back(child);
 			}
 		}
-		value += i_data[i_state.m_index];
-		i_state.m_index += 1;
+		value += i_data[io_state.m_index];
+		io_state.m_index += 1;
 	}
 	return i_currentNode;
 }

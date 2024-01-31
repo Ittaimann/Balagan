@@ -49,12 +49,13 @@ public:
 	XmlParser();
 	virtual ~XmlParser();
 
+	void clearTree(treeNode* i_root);
 	void parseData(const Array<char>& i_data);
 	const treeNode* getRootNode() const { return m_root; };
 	Array<treeNode*> getChildrenNodes() const { return m_root->m_childrenNodes; };
 
 private:
-	treeNode* parseNodes(treeNode* i_currentNode, const Array<char>& i_data, runningState i_stateconst);
+	treeNode* parseNodes(treeNode* i_currentNode, const Array<char>& i_data, runningState& io_state);
 	runningState skipVersion(const Array<char>& i_data);
 
 	treeNode* m_root;

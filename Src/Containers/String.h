@@ -14,24 +14,57 @@ public:
 	{
 	}
 
-	String(const char* i_string)
-		: m_data(nullptr)
-		, m_size(0)
-	{
-		cStringCopy(i_string);
-	}
-
 	virtual ~String()
 	{
 		if (m_data != nullptr)
 		{
 			delete[] m_data;
 		}
+		m_size = 0;
 	}
+
+	explicit String(const char* i_cString)
+		: m_data(nullptr)
+		, m_size(0)
+	{
+		cStringCopy(i_cString);
+	}
+
+	explicit String(const String& i_string)
+		: m_data(nullptr)
+		, m_size(0)
+	{
+		resize(i_string.size());
+		for (uint i = 0; i < i_string.size(); i++)
+		{
+			m_data[i] = i_string[i];
+		}
+	}
+
 	char operator[](int i_index) const { return m_data[i_index]; };
 	void operator+(char i_char);
 	void operator+(String i_string);
-	void operator=(const char* i_string) { cStringCopy(i_string); }
+
+	String& operator=(const String& i_string)
+	{
+		resize(i_string.size());
+		for (uint i = 0; i < i_string.size(); i++)
+		{
+			m_data[i] = i_string[i];
+		}
+		return *this;
+	}
+	String& operator=(const char* i_string)
+	{
+		cStringCopy(i_string);
+		return *this;
+	}
+
+	String& operator=(char i_char)
+	{
+		resize(1, i_char);
+		return *this;
+	}
 
 	bool operator==(const String& i_otherString)
 	{
@@ -52,8 +85,24 @@ public:
 		}
 		return true;
 	}
+
+	bool operator==(const char* i_char)
+	{
+		if (strlen(i_char) == 0 && m_size == 0)
+		{
+			return true;
+		}
+		return strcmp(m_data, i_char) == 0;
+	}
+	bool operator==(const char i_char)
+	{
+		if (m_size > 1)
+			return false;
+		else
+			return m_data[0] == i_char;
+	}
 	void operator+=(char i_char) { append(&i_char, 1); }
-	void operator+=(String i_string) { append(i_string); }
+	void operator+=(const String& i_string) { append(i_string); }
 
 	void append(const char* i_cString, uint32 i_length)
 	{
@@ -70,7 +119,7 @@ public:
 		}
 	}
 
-	void append(const String i_string) { append(i_string.data(), i_string.size()); }
+	void append(const String& i_string) { append(i_string.data(), i_string.size()); }
 
 	void resize(uint32 i_size, char i_initChar)
 	{
@@ -78,7 +127,7 @@ public:
 		if (m_data != nullptr)
 		{
 			uint i = 0;
-			while (i < i_size)
+			while (i <= i_size)
 			{
 				if (i < m_size)
 				{
