@@ -17,12 +17,12 @@ FileIo::status FileIo::openFile(const String& i_filePath, Array<char>* o_outputB
 	}
 
 	fseek(fd, 0L, SEEK_END);
-	uint32 fileSize = ftell(fd);
+	uint32 fileSize = static_cast<uint>(ftell(fd));
 	o_outputBuffer->resize(fileSize);
 
 	fseek(fd, 0, SEEK_SET);
 
-	int ret = fread(o_outputBuffer->data(), o_outputBuffer->size(), 1, fd);
+	int ret = static_cast<int>(fread(o_outputBuffer->data(), o_outputBuffer->size(), 1, fd));
 
 	if (ret != 1)
 	{

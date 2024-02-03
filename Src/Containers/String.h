@@ -165,7 +165,7 @@ public:
 private:
 	void cStringCopy(const char* i_string)
 	{
-		const uint stringSize = strlen(i_string);
+		const uint stringSize = static_cast<uint>(strlen(i_string));
 
 		resize(stringSize);
 		memcpy(m_data, i_string, m_size);
