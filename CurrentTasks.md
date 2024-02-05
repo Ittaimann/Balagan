@@ -32,4 +32,4 @@
         - investigate usage of file descriptors to create logs
     C) Asserts
         - investigate macro style asserts to allow for break points on line
-
+    D) Testing Framework to make sure that my container changes aren't breaking things
