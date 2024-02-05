@@ -22,7 +22,11 @@ int main()
 
 	std::cout << "shit";
 	BAL::String lmao("this is also a test");
+	lmao.resize(2);
+
+	lmao += "this is a mega test";
 	lmao = "this is also a test";
+	lmao.resize(20);
 	std::string lmaouchwer = "this is also a test";
 	std::string test("this is a test");
 	std::cout << test;

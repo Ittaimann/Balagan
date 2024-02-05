@@ -13,9 +13,13 @@ namespace BAL
 class String
 {
 public:
+	//------------------------------------------------------------
+	// Constructors
+	//------------------------------------------------------------
 	String()
 		: m_data(nullptr)
 		, m_size(0)
+		, m_capacity(0)
 	{
 	}
 
@@ -26,11 +30,13 @@ public:
 			delete[] m_data;
 		}
 		m_size = 0;
+		m_capacity = 0;
 	}
 
 	explicit String(const char* i_cString)
 		: m_data(nullptr)
 		, m_size(0)
+		, m_capacity(0)
 	{
 		cStringCopy(i_cString);
 	}
@@ -38,6 +44,7 @@ public:
 	explicit String(const String& i_string)
 		: m_data(nullptr)
 		, m_size(0)
+		, m_capacity(0)
 	{
 		resize(i_string.size());
 		for (uint i = 0; i < i_string.size(); i++)
@@ -46,9 +53,10 @@ public:
 		}
 	}
 
-	char operator[](int i_index) const { return m_data[i_index]; };
-	void operator+(char i_char);
-	void operator+(String i_string);
+	//------------------------------------------------------------
+	// Operators
+	//------------------------------------------------------------
+	char operator[](int i_index) const { return at(i_index); };
 
 	String& operator=(const String& i_string)
 	{
@@ -107,67 +115,107 @@ public:
 			return m_data[0] == i_char;
 	}
 	void operator+=(char i_char) { append(&i_char, 1); }
+	void operator+=(const char* i_char) { append(i_char, static_cast<uint>(strlen(i_char))); }
 	void operator+=(const String& i_string) { append(i_string); }
 
+	//------------------------------------------------------------
+	// append
+	//------------------------------------------------------------
 	void append(const char* i_cString, uint32 i_length)
 	{
 		if (i_cString == nullptr || i_length == 0)
 		{
 			return;
 		}
-		const uint32 preResize = m_size;
-		resize(i_length + m_size);
-		for (uint32 i = 0; i < i_length; i++)
+		if (i_length == 1)
 		{
-			// TODO: unit test this code path...
-			m_data[i + preResize] = i_cString[i];
+			resize(m_size + 1, *i_cString);
+		}
+		else
+		{
+			const uint preResize = m_size;
+			resize(i_length + m_size);
+			for (uint i = 0; i < m_size - preResize; i++)
+			{
+				m_data[preResize + i] = i_cString[i];
+			}
 		}
 	}
 
 	void append(const String& i_string) { append(i_string.data(), i_string.size()); }
 
+	//------------------------------------------------------------
+	// resize
+	//------------------------------------------------------------
 	void resize(uint32 i_size, char i_initChar)
 	{
-		char* tempData = new char[i_size + 1];
-		if (m_data != nullptr)
+		// capcity used more or less as a tracking for the null terminator
+		m_capacity = i_size + 1;
+		char* tempData = allocateMem(m_capacity);
+		// copy prexisting data
+		if (i_size >= m_size)
 		{
-			uint i = 0;
-			while (i <= i_size)
+			stringCopy(tempData, m_data, m_size);
+			for (uint sizeDif = m_size; sizeDif < i_size; sizeDif++)
 			{
-				if (i < m_size)
-				{
-					tempData[i] = m_data[i];
-				}
-				else
-				{
-					tempData[i] = i_initChar;
-				}
-				i++;
+				tempData[sizeDif] = i_initChar;
 			}
-			delete m_data;
 		}
 		else
 		{
-			uint i = 0;
-			while (i < i_size)
-			{
-				tempData[i] = i_initChar;
-				i++;
-			}
+			stringCopy(tempData, m_data, i_size);
 		}
-		tempData[i_size + 1] = '\0';
+
+		// For those keeping track... indexes start at 0 and I'm foolish for
+		// making these mistakes a lot
+		tempData[i_size] = '\0';
 		m_data = tempData;
 		m_size = i_size;
 	}
 
 	void resize(uint32 i_size) { resize(i_size, '\0'); }
 
+	//------------------------------------------------------------
+	// data
+	//------------------------------------------------------------
 	char* data() { return m_data; }
 	const char* data() const { return m_data; };
 
-	uint size() const { return m_size; };
+	//------------------------------------------------------------
+	// size
+	//------------------------------------------------------------
+	inline uint size() const { return m_size; };
+
+	//------------------------------------------------------------
+	// at
+	//------------------------------------------------------------
+	char at(const uint i) const
+	{
+		// TODO: bounds check asserts
+		return m_data[i];
+	}
 
 private:
+	//------------------------------------------------------------
+	// memory allocation
+	//------------------------------------------------------------
+	char* allocateMem(const uint i_size) { return new char[i_size]; }
+
+	//------------------------------------------------------------
+	// private copies
+	//------------------------------------------------------------
+	void stringCopy(char* i_dest, char* i_source, const uint i_size)
+	{
+		// TODO: add an assert when you have those
+		if (i_source != nullptr && i_dest != nullptr)
+		{
+			for (uint i = 0; i < i_size; i++)
+			{
+				i_dest[i] = i_source[i];
+			}
+		}
+	}
+
 	void cStringCopy(const char* i_string)
 	{
 		const uint stringSize = static_cast<uint>(strlen(i_string));
@@ -175,8 +223,10 @@ private:
 		resize(stringSize);
 		memcpy(m_data, i_string, m_size);
 	}
+
 	char* m_data;
 	uint32 m_size;
+	uint32 m_capacity;
 };
 
 } // namespace BAL
