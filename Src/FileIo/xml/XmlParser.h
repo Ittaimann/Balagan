@@ -2,15 +2,13 @@
 #include <Array.h>
 #include <Pair.h>
 #include <String.h>
-// Ideas on how to parse xml
-// parse the file into a tree
-// tree has leafs and branches
-// branch:
-//		new child node
-// leaf:
-//		array of string pairs
-//		array of attributes
 
+// TODO:
+// attributes
+// comment skipping
+// better handling of the version
+// includes?
+// build out a better api
 namespace BAL
 {
 

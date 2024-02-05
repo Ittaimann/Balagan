@@ -2,7 +2,12 @@
 #include "../Core/CoreDefs.h"
 #include <cstdlib>
 #include <cstring> // for strlen
+#include <iterator>
 
+// TODO:
+// massively clean up and reduce the nonsense in this file
+// start creating an inline fo thie most likely
+//... follow the cpp ref style and get it to be an iterator
 namespace BAL
 {
 class String

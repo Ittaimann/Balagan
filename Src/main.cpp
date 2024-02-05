@@ -31,8 +31,10 @@ int main()
 	BAL::Array<char> fileBuffer;
 	BAL::String filePath("Resources/Window.xml");
 	fileHandler.openFile(filePath, &fileBuffer);
-	BAL::XmlParser parser; // TODO: there is something wrong with the destructor
+	BAL::XmlParser parser;
 	parser.parseData(fileBuffer);
+	// TODO: get the parse data I'm looking for (width and height) then load it into the
+	// sdl window
 
 	// TODO:  build some debugging around this
 	SDL_Init(SDL_INIT_VIDEO);
