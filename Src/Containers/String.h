@@ -143,6 +143,7 @@ public:
 	}
 
 	void append(const String& i_string) { append(i_string.data(), i_string.size()); }
+	void append(const char i_char) { append(&i_char, 1); }
 
 	//------------------------------------------------------------
 	// resize

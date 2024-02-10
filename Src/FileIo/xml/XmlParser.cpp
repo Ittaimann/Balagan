@@ -76,10 +76,18 @@ treeNode* XmlParser::parseNodes(treeNode* i_currentNode, const Array<char>& i_da
 			{
 				value = "";
 				uint lookAhead = io_state.m_index + 1;
+				bool hasAttribute = false;
 				while (i_data[lookAhead] != '>')
 				{
-					i_currentNode->m_name += i_data[lookAhead];
-					lookAhead += 1;
+					if (i_data[lookAhead] != ' ')
+					{
+						i_currentNode->m_name += i_data[lookAhead];
+						lookAhead += 1;
+					}
+					else
+					{
+						lookAhead = handleAttribute(i_currentNode, lookAhead);
+					}
 				}
 				io_state.m_index = lookAhead + 1;
 			}
@@ -115,5 +123,30 @@ runningState XmlParser::skipVersion(const Array<char>& i_data)
 		}
 	}
 }
+attributeData XmlParser::handleAttribute(const Array<char>& i_data, const uint& i_lookAhead)
+{
+	String attribName("");
+	String attribValue("");
+	bool readingValue = false;
+	uint lookAhead = i_lookAhead;
+	uint quoteCount = 0;
+	while (quoteCount == 2)
+	{
+		char value = i_data[lookAhead];
+		if (value == '=')
+		{
+			readingValue = true;
+		}
+		if (!readingValue)
+		{
+			attribName.append(value);
+		}
+		if (readingValue && value == '"')
+		{
+			quoteCount++;
+		}
+	}
 
+	return attributeData(attribName, attribValue);
+}
 } // namespace BAL

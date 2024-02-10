@@ -25,7 +25,7 @@ struct treeNode
 	String m_name;
 	String m_value; // may be empty if there is children nodes
 	Array<treeNode*> m_childrenNodes;
-	// Array<attributeData> m_attributeNodes;
+	Array<attributeData> m_attributeNodes;
 };
 
 enum ReturnCodes : uint32
@@ -49,6 +49,8 @@ public:
 
 	void clearTree(treeNode* i_root);
 	void parseData(const Array<char>& i_data);
+	void parseData(const Array<char>& i_data);
+	attributeData handleAttribute();
 	const treeNode* getRootNode() const { return m_root; };
 	Array<treeNode*> getChildrenNodes() const { return m_root->m_childrenNodes; };
 

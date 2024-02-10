@@ -1,8 +1,9 @@
 # current tasks that need to be handled to some degree
 1. clean up and expand string class
-    A) it currently is a mess and needs to be cleaned up and simplified
-    B) get it to work with c++ iterators
-    C) theoretically follow how stuff like the eastl works?
+    A) get it to work with c++ iterators
+    B) theoretically follow how stuff like the eastl works?
+    C) inline/constexper some of this
+
 2. xml parser
     A) get the xml parser to deal with the following:
         - attributes
@@ -10,6 +11,7 @@
         - includes
     B) create an interface for getting values out of the xml parser
     C) validate it?
+
 3. main
     - get the width and height from the xml into the sdl window (dependent on task 2b)
     - get a sprite on screen (may requrire task 4A)

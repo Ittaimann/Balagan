@@ -6,6 +6,12 @@ template <typename T1, typename T2>
 class Pair
 {
 public:
+	Pair(T1 i_fist, T2 i_second)
+		: m_first(i_fist)
+		, m_second(i_second){};
+
+	~Pair();
+
 	T1 getFirst() const { return m_first; }
 	T2 getSecond() const { return m_second; }
 	void setFirst(const T1& i_first) { m_first = i_first; };
