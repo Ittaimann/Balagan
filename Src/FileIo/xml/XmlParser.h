@@ -4,7 +4,6 @@
 #include <String.h>
 
 // TODO:
-// attributes
 // comment skipping
 // better handling of the version
 // includes?
@@ -49,8 +48,7 @@ public:
 
 	void clearTree(treeNode* i_root);
 	void parseData(const Array<char>& i_data);
-	void parseData(const Array<char>& i_data);
-	attributeData handleAttribute();
+	attributeData handleAttribute(const Array<char>& i_data, uint& io_lookAhead);
 	const treeNode* getRootNode() const { return m_root; };
 	Array<treeNode*> getChildrenNodes() const { return m_root->m_childrenNodes; };
 

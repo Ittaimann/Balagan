@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Window>
+<Window attrib="hello">
   <Width>640</Width>
   <Height>480</Height>
 </Window>

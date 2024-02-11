@@ -20,6 +20,7 @@ int main()
 	// 4. consume scene file
 	// 5. go go go
 
+	BAL::Pair<uint, uint> yo(1, 2);
 	std::cout << "shit";
 	BAL::String lmao("this is also a test");
 	lmao.resize(2);

@@ -3,20 +3,26 @@
     A) get it to work with c++ iterators
     B) theoretically follow how stuff like the eastl works?
     C) inline/constexper some of this
+    D) maybe change the char constructors to be non explicit and allow for the implict
 
-2. xml parser
+2. container checks
+    a) make sure that all containers behave in an optimal way
+    b) maybe write copy constructors?
+
+3. xml parser
     A) get the xml parser to deal with the following:
         - attributes
         - comments
         - includes
     B) create an interface for getting values out of the xml parser
     C) validate it?
+    D) mass clean up
 
-3. main
+4. main
     - get the width and height from the xml into the sdl window (dependent on task 2b)
     - get a sprite on screen (may requrire task 4A)
     - create a transform 
-4. more files type support
+5. more files type support
     A) images
         - bmp
         - jpg
@@ -24,7 +30,7 @@
         - others
     B) text
         - JSON
-5. Utilities 
+6. Utilities 
     A) Containers
         - hashmap
         - set

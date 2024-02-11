@@ -22,7 +22,7 @@ public:
 		, m_capacity(0){};
 	virtual ~Array()
 	{
-		delete m_data;
+		delete[] m_data;
 		m_size = 0;
 	};
 	T operator[](const uint32 i_index) const { return m_data[i_index]; }
