@@ -29,11 +29,12 @@ public:
 		{
 			delete[] m_data;
 		}
+		m_data = nullptr;
 		m_size = 0;
 		m_capacity = 0;
 	}
 
-	explicit String(const char* i_cString)
+	String(const char* i_cString)
 		: m_data(nullptr)
 		, m_size(0)
 		, m_capacity(0)
@@ -41,7 +42,7 @@ public:
 		cStringCopy(i_cString);
 	}
 
-	explicit String(const String& i_string)
+	String(const String& i_string)
 		: m_data(nullptr)
 		, m_size(0)
 		, m_capacity(0)

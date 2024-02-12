@@ -1,9 +1,13 @@
 # current tasks that need to be handled to some degree
+
+FIGURE OUT WHAT CURSED THING IS HAPPENING WITH ALLOCATIONS IN THE PAIRS STUFF
+ITS LITERALLY OVERLAPPING ALLOACTIONS (doing a new string in the same spot as a char?)
+
 1. clean up and expand string class
     A) get it to work with c++ iterators
     B) theoretically follow how stuff like the eastl works?
     C) inline/constexper some of this
-    D) maybe change the char constructors to be non explicit and allow for the implict
+    D) Investigate explicit keyword... I'm getting sick of dealing with this
 
 2. container checks
     a) make sure that all containers behave in an optimal way
@@ -41,3 +45,5 @@
     C) Asserts
         - investigate macro style asserts to allow for break points on line
     D) Testing Framework to make sure that my container changes aren't breaking things
+7. allocations
+    A) kinda in the container work but figure out a good way to allocations lmao

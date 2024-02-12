@@ -1,4 +1,6 @@
 #pragma once
+#include <CoreDefs.h>
+#include <iostream>
 
 namespace BAL
 {
@@ -13,7 +15,23 @@ public:
 		: m_first(i_fist)
 		, m_second(i_second){};
 
-	~Pair(){};
+	//	~Pair()
+	//	{
+	//		uint lmao = 0;
+	//		std::cout << lmao;
+	//	};
+
+	Pair(const Pair& i_otherPair)
+	{
+		m_first = i_otherPair.getFirst();
+		m_second = i_otherPair.getSecond();
+	}
+	Pair& operator=(const Pair& i_otherPair)
+	{
+		m_first = i_otherPair.getFirst();
+		m_second = i_otherPair.getSecond();
+		return *this;
+	}
 
 	T1 getFirst() const { return m_first; }
 	T2 getSecond() const { return m_second; }

@@ -136,17 +136,23 @@ attributeData XmlParser::handleAttribute(const Array<char>& i_data, uint& io_loo
 		{
 			readingValue = true;
 		}
-		if (!readingValue)
-		{
-			attribName.append(value);
-		}
 		else
 		{
-			attribValue.append(value);
-		}
-		if (readingValue && value == '"')
-		{
-			quoteCount++;
+			if (readingValue && value == '"')
+			{
+				quoteCount++;
+			}
+			else
+			{
+				if (!readingValue)
+				{
+					attribName.append(value);
+				}
+				else
+				{
+					attribValue.append(value);
+				}
+			}
 		}
 		io_lookAhead++;
 	}

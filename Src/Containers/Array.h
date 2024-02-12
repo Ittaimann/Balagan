@@ -25,10 +25,10 @@ public:
 		delete[] m_data;
 		m_size = 0;
 	};
-	T operator[](const uint32 i_index) const { return m_data[i_index]; }
-	T at(const uint32 i_index) const { return m_data[i_index]; }
-	T front();
-	T back();
+	T& operator[](const uint32 i_index) const { return m_data[i_index]; }
+	T& at(const uint32 i_index) const { return m_data[i_index]; }
+	T& front();
+	T& back();
 	T* data() { return m_data; }
 	void clear() { shrink(0); }
 	void resize(const uint32 i_size)
@@ -44,10 +44,11 @@ public:
 		}
 	}
 
-	void push_back(T i_value)
+	void push_back(const T& i_value)
 	{
 		append();
-		m_data[m_size - 1] = i_value;
+		// placement new?
+		new (&m_data[m_size - 1]) T(i_value);
 	}
 
 	T& push_back()
