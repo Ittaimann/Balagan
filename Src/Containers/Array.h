@@ -24,6 +24,7 @@ public:
 	{
 		delete[] m_data;
 		m_size = 0;
+		m_data = nullptr;
 	};
 	T& operator[](const uint32 i_index) const { return m_data[i_index]; }
 	T& at(const uint32 i_index) const { return m_data[i_index]; }
@@ -48,7 +49,8 @@ public:
 	{
 		append();
 		// placement new?
-		new (&m_data[m_size - 1]) T(i_value);
+		T* newObj = &m_data[m_size - 1];
+		new (newObj) T(i_value);
 	}
 
 	T& push_back()
@@ -89,9 +91,10 @@ private:
 		}
 		else
 		{
-			expand(m_size * C_GROWTH_RATE);
+			expand(m_size + 1);
 			m_size += 1;
 		}
+		// TODO:
 	}
 
 	void shrink(const uint32 i_size)

@@ -11,6 +11,7 @@ ITS LITERALLY OVERLAPPING ALLOACTIONS (doing a new string in the same spot as a 
 
 2. container checks
     a) make sure that all containers behave in an optimal way
+        1. Write a ammortization step for the array growth 
     b) maybe write copy constructors?
 
 3. xml parser
