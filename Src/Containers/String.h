@@ -58,6 +58,7 @@ public:
 	// Operators
 	//------------------------------------------------------------
 	char operator[](int i_index) const { return at(i_index); };
+	char operator[](uint i_index) const { return at(i_index); };
 
 	String& operator=(const String& i_string)
 	{
@@ -191,7 +192,22 @@ public:
 	//------------------------------------------------------------
 	// at
 	//------------------------------------------------------------
-	char at(const uint i) const
+	const char& at(const uint i) const
+	{
+		// TODO: bounds check asserts
+		return m_data[i];
+	}
+	const char& at(const int i) const
+	{
+		// TODO: bounds check asserts
+		return m_data[i];
+	}
+	char& at(const uint i)
+	{
+		// TODO: bounds check asserts
+		return m_data[i];
+	}
+	char& at(const int i)
 	{
 		// TODO: bounds check asserts
 		return m_data[i];

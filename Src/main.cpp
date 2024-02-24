@@ -27,7 +27,7 @@ int main()
 	mo.setFirst("first");
 	mo.setSecond("second");
 	test2.push_back(mo);
-
+	std::cout << test2.back().getFirst().data() << std::endl;
 	BAL::String lmao("this is also a test");
 	lmao.resize(2);
 

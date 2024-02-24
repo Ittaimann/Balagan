@@ -1,8 +1,4 @@
 # current tasks that need to be handled to some degree
-
-FIGURE OUT WHAT CURSED THING IS HAPPENING WITH ALLOCATIONS IN THE PAIRS STUFF
-ITS LITERALLY OVERLAPPING ALLOACTIONS (doing a new string in the same spot as a char?)
-
 1. clean up and expand string class
     A) get it to work with c++ iterators
     B) theoretically follow how stuff like the eastl works?

@@ -16,6 +16,7 @@ class Array
 	static constexpr uint32 C_GROWTH_RATE = 2u;
 
 public:
+	//---- constructors -----
 	Array()
 		: m_data(nullptr)
 		, m_size(0)
@@ -26,11 +27,17 @@ public:
 		m_size = 0;
 		m_data = nullptr;
 	};
+
+	//---- accessors ----
 	T& operator[](const uint32 i_index) const { return m_data[i_index]; }
 	T& at(const uint32 i_index) const { return m_data[i_index]; }
-	T& front();
-	T& back();
+	T& front() { return m_data[0]; }
+	T& back() { return m_data[m_size - 1]; }
+	const T& front() const { return m_data[0]; }
+	const T& back() const { return m_data[m_size - 1]; }
 	T* data() { return m_data; }
+
+	//---- modifiers -----
 	void clear() { shrink(0); }
 	void resize(const uint32 i_size)
 	{
@@ -59,6 +66,8 @@ public:
 		m_data[m_size] = new T;
 		return m_data[m_size];
 	}
+
+	//---- getters -----
 	uint32 size() const { return m_size; }
 	uint32 capacity() const { return m_capacity; }
 
@@ -94,7 +103,6 @@ private:
 			expand(m_size + 1);
 			m_size += 1;
 		}
-		// TODO:
 	}
 
 	void shrink(const uint32 i_size)
