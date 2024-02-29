@@ -19,7 +19,6 @@ int main() {
   // 3. start render loop
   // 4. consume scene file
   // 5. go go go
-  // test
   // std::vector<BAL::Pair<BAL::String, BAL::String>> test;
   BAL::Array<BAL::Pair<BAL::String, BAL::String>> test2;
   BAL::Pair<BAL::String, BAL::String> mo;
