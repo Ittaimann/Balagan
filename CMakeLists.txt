@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.25.1)
 project(Balagan VERSION 0.0.1)
 
 
+add_subdirectory(External/SDL)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 set(CMAKE_DEBUG_POSTFIX d)
@@ -9,7 +11,6 @@ set(CMAKE_DEBUG_POSTFIX d)
 # externals do not get the compile options, the hope 
 # being that they are reasonable. I'm not going to silence
 # warnings for me based on them
-add_subdirectory(External/SDL)
 
 if (MSVC)
     add_compile_options(/W4 /WX /Wall)
@@ -21,13 +22,15 @@ endif()
 
 add_subdirectory(Src/FileIo)
 
-add_executable(Balagan Src/main.cpp)
+add_library(Balagan Src/main.cpp)
 set_target_properties(Balagan PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 
-target_include_directories(Balagan PRIVATE Src/Core)
-target_include_directories(Balagan PRIVATE Src/Containers)
-target_include_directories(Balagan PRIVATE Src/FileIo)
-target_include_directories(Balagan PUBLIC external/SDL/include)
+set(BALAGAN_INCLUDES Src/Core Src/Containers Src/FileIo)
+target_include_directories(Balagan PUBLIC ${BALAGAN_INCLUDES})
+#target_include_directories(Balagan PUBLIC Src/Core)
+#target_include_directories(Balagan PUBLIC Src/Containers)
+#target_include_directories(Balagan PUBLIC Src/FileIo)
+target_include_directories(Balagan PRIVATE external/SDL/include)
 
 set(LIBS FileIo)
 
