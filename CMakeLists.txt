@@ -21,18 +21,21 @@ endif()
 
 
 add_subdirectory(Src/FileIo)
+add_subdirectory(Src/Os/Window)
+add_subdirectory(Src/Render/BAL2D)
 
 add_library(Balagan Src/main.cpp)
 set_target_properties(Balagan PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 
-set(BALAGAN_INCLUDES Src/Core Src/Containers Src/FileIo)
+set(BALAGAN_INCLUDES Src/Core Src/Containers Src/FileIo Src/Os/Window
+	Src/Render/BAL2D)
 target_include_directories(Balagan PUBLIC ${BALAGAN_INCLUDES})
 #target_include_directories(Balagan PUBLIC Src/Core)
 #target_include_directories(Balagan PUBLIC Src/Containers)
 #target_include_directories(Balagan PUBLIC Src/FileIo)
 target_include_directories(Balagan PRIVATE external/SDL/include)
 
-set(LIBS FileIo)
+set(LIBS FileIo Window BAL2D)
 
 if (MSVC)
     set_property(DIRECTORY ${PROJECT_ROOT} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
