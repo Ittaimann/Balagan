@@ -13,6 +13,8 @@ public:
 	bool initialize(Window* i_window);
 	bool destroy();
 
+	void renderFrame();
+
 private:
 	SDL_Renderer* m_renderer;
 };

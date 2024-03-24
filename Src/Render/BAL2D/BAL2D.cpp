@@ -17,4 +17,12 @@ bool BAL2D::destroy()
 	SDL_DestroyRenderer(m_renderer);
 	return false;
 }
+
+void BAL2D::renderFrame()
+{
+	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(m_renderer);
+	SDL_RenderPresent(m_renderer);
+}
+
 } // namespace BAL
