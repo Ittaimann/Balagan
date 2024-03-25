@@ -1,6 +1,6 @@
 #include <CoreDefs.h>
 
-class SDL_Window;
+struct SDL_Window;
 namespace BAL
 {
 class Window
